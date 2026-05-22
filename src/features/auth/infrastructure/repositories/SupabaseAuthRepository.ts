@@ -1,6 +1,6 @@
-import { supabase } from "../../../shared/infrastructure/supabase/client";
-import { User } from "../domain/entities/User";
-import { IAuthRepository } from "../domain/IAuthRepository";
+import { supabase } from "../../../../shared/infrastructure/supabase/client";
+import { User } from "../../domain/entities/User";
+import { IAuthRepository } from "../../domain/IAuthRepository";
 
 export class SupabaseAuthRepository implements IAuthRepository {
   async login(email: string, password: string): Promise<User> {
