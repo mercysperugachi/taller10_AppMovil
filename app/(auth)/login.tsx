@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import Entypo from '@expo/vector-icons/Entypo';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Bienvenido 👋</Text>
+      <Text style={styles.title}>Bienvenido Amigo  👋<Entypo name="emoji-happy" size={30} color="black" /></Text>
       {error && <Text style={styles.error}>{error}</Text>}
       <TextInput
         style={styles.input}
@@ -67,12 +68,12 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   button: {
-    backgroundColor: "#007AFF",
+    backgroundColor: "#db1d1d",
     borderRadius: 8,
     padding: 14,
     alignItems: "center",
   },
   buttonText: { color: "#fff", fontWeight: "600", fontSize: 16 },
   error: { color: "red", marginBottom: 12, textAlign: "center" },
-  link: { marginTop: 16, textAlign: "center", color: "#007AFF" },
+  link: { marginTop: 16, textAlign: "center", color: "#b32222" },
 });

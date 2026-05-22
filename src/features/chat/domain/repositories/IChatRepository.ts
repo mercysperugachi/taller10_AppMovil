@@ -1,19 +1,15 @@
-// src/features/chat/domain/repositories/IChatRepository.ts
-
 import { Message, Room } from "../entities/Message";
 
 export interface IChatRepository {
   getRooms(): Promise<Room[]>;
   createRoom(name: string, userId: string): Promise<Room>;
   getMessages(roomId: string): Promise<Message[]>;
-  sendMessage(
-    roomId: string,
-    userId: string,
-    content: string
-  ): Promise<Message>;
-  // Devuelve la funcion unsubscribe, compatible con el return de useEffect
-  subscribeToRoom(
-    roomId: string,
-    onMessage: (msg: Message) => void,
-  ): () => void;
+  
+  // <-- ACTUALIZADO: Ahora acepta imageUrl opcional
+  sendMessage(roomId: string, userId: string, content: string, imageUrl?: string): Promise<Message>;
+  
+  // <-- NUEVO: Método para subir imágenes a Supabase
+  uploadImage(uri: string): Promise<string>; 
+  
+  subscribeToRoom(roomId: string, onMessage: (msg: Message) => void): () => void;
 }

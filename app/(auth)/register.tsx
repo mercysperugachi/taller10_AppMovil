@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function RegisterScreen() {
   const [email, setEmail] = useState("");
@@ -18,7 +19,7 @@ export default function RegisterScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Crear cuenta</Text>
+      <Text style={styles.title}>Crear cuenta <Ionicons name="create-outline" size={40} color="red" /></Text>
       {error && <Text style={styles.error}>{error}</Text>}
       <TextInput
         style={styles.input}
@@ -76,12 +77,12 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   button: {
-    backgroundColor: "#007AFF",
+    backgroundColor: "#d82e2e",
     borderRadius: 8,
     padding: 14,
     alignItems: "center",
   },
   buttonText: { color: "#fff", fontWeight: "600", fontSize: 16 },
   error: { color: "red", marginBottom: 12, textAlign: "center" },
-  link: { marginTop: 16, textAlign: "center", color: "#007AFF" },
+  link: { marginTop: 16, textAlign: "center", color: "#ad1b1b" },
 });

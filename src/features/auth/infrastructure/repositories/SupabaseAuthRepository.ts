@@ -59,4 +59,14 @@ export class SupabaseAuthRepository implements IAuthRepository {
       // agregar avatar
     };
   }
+  async updatePushToken(userId: string, token: string): Promise<void> {
+    const { error } = await supabase
+      .from("profiles")
+      .update({ expo_push_token: token })
+      .eq("id", userId);
+    
+    if (error) {
+      console.error("Error al guardar el token push:", error);
+    }
+  }
 }

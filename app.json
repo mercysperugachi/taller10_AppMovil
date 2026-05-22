@@ -44,6 +44,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "098b258d-5de6-4ebb-9dc8-6588630b413b"
+      }
+    },
+    "owner": "mercyperugachi"
   }
 }
