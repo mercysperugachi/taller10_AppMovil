@@ -5,9 +5,15 @@ import { RegisterUseCase } from "../../application/use-cases/RegisterUseCase";
 import { SupabaseAuthRepository } from "../../infrastructure/repositories/SupabaseAuthRepository";
 import { useAuthStore } from "../store/authStore";
 
+import { AppwriteAuthRepository } from "../../infrastructure/repositories/AppwriteAuthRepository";
+
+// Comentas Supabase y activas Appwrite
+// const authRepo = new SupabaseAuthRepository();
+const authRepo = new AppwriteAuthRepository();
+
 type RegisterDto = { email: string; password: string; username: string; role: 'vendedor' | 'cliente' };
 
-const authRepo = new SupabaseAuthRepository();
+//const authRepo = new SupabaseAuthRepository();
 const loginUseCase = new LoginUseCase(authRepo);
 const registerUseCase = new RegisterUseCase(authRepo);
 

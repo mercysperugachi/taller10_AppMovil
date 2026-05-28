@@ -41,7 +41,8 @@ export default function ChatScreen() {
 
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      // Reemplazamos ImagePicker.MediaTypeOptions.Images por un arreglo:
+      mediaTypes: ['images'], // <-- ACTUALIZADO (Elimina el Warning)
       allowsEditing: true,
       quality: 0.7,
     });
