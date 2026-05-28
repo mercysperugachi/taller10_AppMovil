@@ -8,8 +8,11 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  TouchableWithoutFeedback,
+  Keyboard
 } from "react-native";
 import Entypo from '@expo/vector-icons/Entypo';
+import {Image } from 'expo-image'
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -17,39 +20,43 @@ export default function LoginScreen() {
   const { login, isLoading, error } = useAuth();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Bienvenido Amigo  👋<Entypo name="emoji-happy" size={30} color="black" /></Text>
-      {error && <Text style={styles.error}>{error}</Text>}
-      <TextInput
-        style={styles.input}
-        placeholder="Correo"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        keyboardType="email-address"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Contraseña"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => login({ email, password })}
-        disabled={isLoading}
-      >
-        {isLoading ? (
-          <ActivityIndicator color="#fff" />
-        ) : (
-          <Text style={styles.buttonText}>Ingresar</Text>
-        )}
-      </TouchableOpacity>
-      <Link href="/(auth)/register" style={styles.link}>
-        ¿No tienes cuenta? Regístrate
-      </Link>
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.container}>
+        <Image source={require('../../assets/images/logo.png')}
+        style={styles.img}/>
+        <Text style={styles.title}>Bienvenido Amigo</Text>
+        {error && <Text style={styles.error}>{error}</Text>}
+        <TextInput
+          style={styles.input}
+          placeholder="Correo"
+          value={email}
+          onChangeText={setEmail}
+          autoCapitalize="none"
+          keyboardType="email-address"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Contraseña"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => login({ email, password })}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <Text style={styles.buttonText}>Ingresar</Text>
+          )}
+        </TouchableOpacity>
+        <Link href="/(auth)/register" style={styles.link}>
+          ¿No tienes cuenta? Regístrate
+        </Link>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 const styles = StyleSheet.create({
@@ -60,6 +67,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     textAlign: "center",
   },
+  img:{width: 200, height: 200, justifyContent:"center", alignSelf:"center", marginBottom: 24},
   input: {
     borderWidth: 1,
     borderColor: "#ccc",

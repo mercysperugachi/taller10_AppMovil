@@ -8,10 +8,11 @@ import { Image } from 'expo-image';
 import { Ionicons } from "@expo/vector-icons";
 // Importamos Reanimated para animar la entrada de los mensajes
 import Animated, { FadeInUp, Layout, ZoomIn } from "react-native-reanimated";
+import * as Haptics from 'expo-haptics';
 
 import {
   FlatList, KeyboardAvoidingView, Platform, StyleSheet,
-  Text, TextInput, TouchableOpacity, Pressable, View, ActivityIndicator
+  Text, TextInput, TouchableOpacity, Pressable, View, ActivityIndicator, ImageBackground
 } from "react-native";
 
 export default function ChatScreen() {
@@ -33,6 +34,7 @@ export default function ChatScreen() {
 
   const handleSend = useCallback(async () => {
     if (!input.trim()) return;
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     sendMessage(input.trim());
     setInput("");
   }, [input, sendMessage]);
@@ -87,67 +89,81 @@ export default function ChatScreen() {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
+    <ImageBackground 
+      source={require('../../../assets/images/fondo.png')} // Ajusta la ruta y extensión según tu imagen
+      style={styles.backgroundImage}
+      resizeMode="cover" // Esto asegura que la imagen cubra todo el fondo
     >
+      <View style={{ flex: 1, backgroundColor: 'rgba(250, 247, 247, 0.8)' }}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 65} // <-- AUMENTA ESTE VALOR PARA ANDROID/IOS
+      >
 
 
-      <FlatList
-        ref={listRef}
-        data={messages}
-        keyExtractor={(m) => m.id}
-        renderItem={renderMsg}
-        contentContainerStyle={styles.listContent}
-        showsVerticalScrollIndicator={false}
-        onContentSizeChange={() => listRef.current?.scrollToEnd({ animated: true })}
-      />
-
-      {/* Área de Input Elegante */}
-      <View style={styles.inputRow}>
-        <Pressable 
-          style={({ pressed }) => [styles.attachBtn, pressed && styles.btnPressed]} 
-          onPress={pickImage} 
-          disabled={isSendingImage}
-        >
-          {isSendingImage ? (
-             <ActivityIndicator size="small" color="#800020" />
-          ) : (
-             <Ionicons name="image-outline" size={26} color="#800020" />
-          )}
-        </Pressable>
-
-        <TextInput
-          style={styles.input}
-          value={input}
-          onChangeText={setInput}
-          placeholder="Escribe un mensaje..."
-          placeholderTextColor="#B5A0A0"
-          multiline
-          maxLength={500}
+        <FlatList
+          ref={listRef}
+          data={messages}
+          keyExtractor={(m) => m.id}
+          renderItem={renderMsg}
+          contentContainerStyle={styles.listContent}
+          showsVerticalScrollIndicator={false}
+          onContentSizeChange={() => listRef.current?.scrollToEnd({ animated: true })}
         />
 
-        <Animated.View entering={ZoomIn.duration(300)}>
+        {/* Área de Input Elegante */}
+        <View style={styles.inputRow}>
           <Pressable 
-            style={({ pressed }) => [
-              styles.sendBtn, 
-              (!input.trim()) && styles.sendBtnDisabled, // Cambia si está vacío
-              pressed && styles.btnPressed
-            ]} 
-            onPress={handleSend}
-            disabled={!input.trim()} // No permite enviar mensajes vacíos
+            style={({ pressed }) => [styles.attachBtn, pressed && styles.btnPressed]} 
+            onPress={pickImage} 
+            disabled={isSendingImage}
           >
-            <Ionicons name="send" size={18} color="#FFFFFF" style={{ marginLeft: 4 }} />
+            {isSendingImage ? (
+              <ActivityIndicator size="small" color="#800020" />
+            ) : (
+              <Ionicons name="image-outline" size={26} color="#800020" />
+            )}
           </Pressable>
-        </Animated.View>
+
+          <TextInput
+            style={styles.input}
+            value={input}
+            onChangeText={setInput}
+            placeholder="Escribe un mensaje..."
+            placeholderTextColor="#B5A0A0"
+            multiline
+            maxLength={500}
+          />
+          
+
+          <Animated.View entering={ZoomIn.duration(300)}>
+            <Pressable 
+              style={({ pressed }) => [
+                styles.sendBtn, 
+                (!input.trim()) && styles.sendBtnDisabled, // Cambia si está vacío
+                pressed && styles.btnPressed
+              ]} 
+              onPress={handleSend}
+              disabled={!input.trim()} // No permite enviar mensajes vacíos
+            >
+              <Ionicons name="send" size={18} color="#FFFFFF" style={{ marginLeft: 4 }} />
+            </Pressable>
+          </Animated.View>
+        </View>
+      </KeyboardAvoidingView>
       </View>
-    </KeyboardAvoidingView>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#FAF7F7" },
+  backgroundImage: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
+  container: { flex: 1, backgroundColor: "transparent" },
   
   // --- CABECERA ---
   header: {

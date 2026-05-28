@@ -16,7 +16,7 @@ export default function AppLayout() {
       <Stack.Screen
         name="index"
         options={{
-          title: "Salas de Chat",
+          title: "Catálogo de Productos",
           headerRight: () => (
             <TouchableOpacity onPress={logout} style={{ marginRight: 4 }}>
               <Text style={{ color: "#fff", fontSize: 14 }}>Salir</Text>
@@ -24,6 +24,7 @@ export default function AppLayout() {
           ),
         }}
       />
+      
       <Stack.Screen name="chat/[roomId]" options={{ title: "Chat" }} />
     </Stack>
   );

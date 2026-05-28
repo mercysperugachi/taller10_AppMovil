@@ -16,6 +16,7 @@ export function useRooms() {
     data: rooms = [],
     isLoading,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["rooms"],
     queryFn: () => chatRepo.getRooms(),
@@ -38,6 +39,7 @@ export function useRooms() {
     rooms,
     isLoading,
     error: error?.message ?? null,
+    refetch,
     createRoom: createMutation.mutate,
     isCreating: createMutation.isPending,
     createError: createMutation.error?.message ?? null,

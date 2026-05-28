@@ -5,8 +5,32 @@ export interface Message {
   content: string;
   createdAt: Date;
   authorUsername?: string;
-  imageUrl?: string; // <-- NUEVO: URL de la imagen
+  imageUrl?: string; 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export interface Room {
   id: string;
